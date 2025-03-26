@@ -32,6 +32,7 @@ Devvit.addMenuItem({
 Devvit.addMenuItem({
    label: 'My Menu Item',
      location: 'subreddit',
+     forUserType: 'moderator',
      onPress: (event, context) => {
        const location = event.location;
        const targetId = event.targetId;
