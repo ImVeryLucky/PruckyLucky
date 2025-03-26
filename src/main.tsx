@@ -29,6 +29,16 @@ Devvit.addMenuItem({
   },
 });
 
+Devvit.addMenuItem({
+   label: 'My Menu Item',
+     location: 'subreddit',
+     onPress: (event, context) => {
+       const location = event.location;
+       const targetId = event.targetId;
+       context.ui.showToast(`You clicked on ${location} ${targetId}`);
+     }
+   });
+
 // Add a post type definition
 Devvit.addCustomPostType({
   name: 'Experience Post',
