@@ -33,10 +33,10 @@ Devvit.addMenuItem({
    label: 'My Menu Item',
      location: 'subreddit',
      forUserType: 'moderator',
-     onPress: (event, context) => {
-       const location = event.location;
-       const targetId = event.targetId;
-       context.ui.showToast(`You clicked on ${location} ${targetId}`);
+     onPress: async(_event, context) => {
+      const { reddit, ui } = context;
+      ui.showToast("You clicked");
+
      }
    });
 
@@ -93,6 +93,9 @@ Devvit.addCustomPostType({
             <text size="large">{`Click counter: ${counter}`}</text>
             <button appearance="primary" onPress={() => setCounter((counter) => counter + 1)}>
               Click me!
+            </button>
+            <button appearance="primary" onPress={() => setCounter((counter) => counter - 1)}>
+              Don't Click me!
             </button>
       </hstack>
 
