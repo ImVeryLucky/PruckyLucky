@@ -16,7 +16,7 @@ Devvit.addMenuItem({
 
     const subreddit = await reddit.getCurrentSubreddit();
     const post = await reddit.submitPost({
-      title: 'My devvit post',
+      title: 'Time',
       subredditName: subreddit.name,
       // The preview appears while the post loads
       preview: (
