@@ -29,79 +29,52 @@ Devvit.addMenuItem({
   },
 });
 
-Devvit.addMenuItem({
-   label: 'My Menu Item',
-     location: 'subreddit',
-     forUserType: 'moderator',
-     onPress: async(_event, context) => {
-      const { reddit, ui } = context;
-      ui.showToast("You clicked");
-
-     }
-   });
-
 // Add a post type definition
 Devvit.addCustomPostType({
-  name: 'Experience Post',
+  name: 'Timer Game',
   height: 'regular',
   render: (_context) => {
-    const [counter, setCounter] = useState(0);
-
-    return (
-      <vstack>
-        <hstack height="100%" width="100%" gap="none" alignment="center middle">
-            <image
-              url="logo.png"
-              description="logo"
-              imageHeight={256}
-              imageWidth={256}
-              height="48px"
-              width="48px"
-            />
-            <image
-              url="logo.png"
-              description="logo"
-              imageHeight={256}
-              imageWidth={256}
-              height="48px"
-              width="48px"
-            />
-            <image
-              url="logo.png"
-              description="logo"
-              imageHeight={256}
-              imageWidth={256}
-              height="48px"
-              width="48px"
-            />
-            <image
-              url="logo.png"
-              description="logo"
-              imageHeight={256}
-              imageWidth={256}
-              height="48px"
-              width="48px"
-            />
-            <image
-              url="logo.png"
-              description="logo"
-              imageHeight={256}
-              imageWidth={256}
-              height="48px"
-              width="48px"
-            />
-            <text size="large">{`Click counter: ${counter}`}</text>
-            <button appearance="primary" onPress={() => setCounter((counter) => counter + 1)}>
-              Click me!
-            </button>
-            <button appearance="primary" onPress={() => setCounter((counter) => counter - 1)}>
-              Don't Click me!
-            </button>
-      </hstack>
-
-
-      </vstack>
+    const [target, setTarget] = useState<number>(0);
+    const [startTime, setStartTime] = useState<number | null>(null);
+    const [elapsed, setElapsed] = useState<number>(0);
+    const [score, setScore] = useState(0);    
+        const startGame = (): void => {
+          setTarget(Math.floor(Math.random() * 11) + 5);
+          setStartTime(Date.now());
+          setElapsed(0);
+        };
       
+        const stopGame = (): void => {
+          if (startTime) {
+            const currentElapsed = (Date.now() - startTime) / 1000;
+            setElapsed(currentElapsed);
+            console.log(`target: ${target}, elapsed: ${currentElapsed}`);
+            setScore(Math.abs(target - currentElapsed));
+          }
+        };
+      
+    return (
+      <vstack alignment='center middle' height='100%' gap='large'>
+        <text size='xxlarge' weight='bold'>
+          Stopwatch
+        </text>
+        <text>
+          Target Time: {target} seconds
+        </text>
+        target === 0 ? (
+          <button appearance="primary" onPress={startGame}>
+              Start game! 
+          </button>
+        {elapsed ===  0 ? (
+          <button appearance="primary" onPress={stopGame}> Stop </button>
+            ) : (
+          <vstack alignment='center middle' gap="small">
+            <text>Your Time: {elapsed.toFixed(2)} seconds</text>
+            <text>Your were off by: {score.toFixed(2)} seconds</text>
+          </vstack>
+        )};
+        )
+      </vstack>
     );
   },
 });
